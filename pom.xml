@@ -103,6 +103,7 @@
         </executions>
       </plugin>
     </plugins>
+    <finalName>kwiklogistics</finalName>
   </build>
 
 </project>
