@@ -3,6 +3,7 @@ package com.example.houseofprayerlogistics.service;
 import com.example.houseofprayerlogistics.dto.DroneDTO;
 import com.example.houseofprayerlogistics.entity.Drone;
 import com.example.houseofprayerlogistics.repository.DroneRepository;
+import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,14 @@ public class DroneService {
   }
 
 
-  public DroneDTO createDrone(DroneDTO droneDTO){
+  public boolean createDrone(DroneDTO droneDTO){
     Drone drone = modelMapper.map(droneDTO, Drone.class);
-    drone = droneRepository.save(drone);
-    return modelMapper.map(drone, DroneDTO.class);
+    Optional<Drone> droneCopy = droneRepository.findDroneBySerialNumber(droneDTO.getSerialNumber());
+    if(!droneCopy.isPresent()){
+      droneRepository.save(drone);
+      return true;
+    }
+    return false;
   }
 
 }

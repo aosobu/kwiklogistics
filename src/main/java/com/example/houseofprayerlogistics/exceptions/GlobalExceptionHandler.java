@@ -1,6 +1,5 @@
 package com.example.houseofprayerlogistics.exceptions;
 
-
 import com.example.houseofprayerlogistics.domain.ApiError;
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -11,4 +11,8 @@ public class AppConstants {
   public static final String BATTERY_MIN_VALIDATION_MESSAGE = "battery capacity cannot be lower than 1%";
   public static final String SERIALNUMBER_VALIDATION_MESSAGE = "serial number cannot be empty";
   public static final String SERIALNUMBER_MAX_VALIDATION_MESSAGE = "serial number should not exceed 100 characters";
+
+  //response messages
+  public static final String DRONE_SUCCESSFUL_REGISTER = "drone with serial number %s has been successfully registered";
+  public static final String DRONE_FAILURE_REGISTER = "drone with serial number %s already exists";
 }
