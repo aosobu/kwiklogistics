@@ -15,3 +15,8 @@ Build the jar using command,
 Start the application with the command,
 
     docker-compose up
+
+## Assumptions
+- The minimum capacity of a drone is pegged at 50 grrams
+- The default state of registered drone is IDLE
+ 
