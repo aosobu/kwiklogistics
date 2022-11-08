@@ -10,7 +10,6 @@ import lombok.Data;
 
 @Data
 public class DroneDTO {
-
   private Long id;
 
   private Model model;

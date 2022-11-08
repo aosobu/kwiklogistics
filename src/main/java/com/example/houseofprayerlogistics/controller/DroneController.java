@@ -2,9 +2,9 @@ package com.example.houseofprayerlogistics.controller;
 
 import com.example.houseofprayerlogistics.constants.AppConstants;
 import com.example.houseofprayerlogistics.domain.ApiError;
+import com.example.houseofprayerlogistics.domain.BaseResponse;
 import com.example.houseofprayerlogistics.dto.DroneDTO;
 import com.example.houseofprayerlogistics.service.DroneService;
-import java.util.Collections;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +29,10 @@ public class DroneController {
   @PostMapping(value = AppConstants.DRONE_REGISTRATION)
   public ResponseEntity<Object> registerDrone(@RequestBody @Valid DroneDTO droneDTO){
     if(droneService.createDrone(droneDTO)) {
-      return ResponseEntity.ok(String.format(AppConstants.DRONE_SUCCESSFUL_REGISTER, droneDTO.getSerialNumber()));
+      return ResponseEntity.ok(
+          new BaseResponse(String.format(AppConstants.DRONE_SUCCESSFUL_REGISTER, droneDTO.getSerialNumber())));
     }
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        .body(new ApiError(Collections.singletonList(String.format(AppConstants.DRONE_FAILURE_REGISTER, droneDTO.getSerialNumber()))));
+        .body(new BaseResponse(String.format(AppConstants.DRONE_FAILURE_REGISTER, droneDTO.getSerialNumber())));
   }
 }
