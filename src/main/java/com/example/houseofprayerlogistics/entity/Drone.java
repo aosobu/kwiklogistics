@@ -22,7 +22,7 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "DRONE_TB", indexes = @Index(name = "sn_index" , columnList = "serialNumber"))
 public class Drone extends AbstractAuditable {
 
-  private short weight;
+  private short weightLimit;
 
   private byte batteryCapacity;
 

@@ -13,11 +13,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class DroneService {
 
   private ModelMapper modelMapper;
@@ -46,7 +48,7 @@ public class DroneService {
   public boolean loadDrone(String serialNumber){
     Optional<Drone> drone = droneRepository.findDroneBySerialNumber(serialNumber);
     if(!drone.isPresent()){
-      AppConstants.MESSAGE = AppConstants.DRONE_NOT_EXIST;
+      AppConstants.message = AppConstants.DRONE_NOT_EXIST;
       return false;
     }
 
@@ -56,19 +58,24 @@ public class DroneService {
 
       if(medicationOrderList.isPresent()){
         List<MedicationOrder> medicationOrders = medicationOrderList.get();
-        medicationOrders.forEach(medicationOrder -> {
-          medicationList.add(medicationOrder.getMedication());
-        });
-        return loadDroneWithMedication(medicationList);
+        medicationOrders.forEach(medicationOrder -> medicationList.add(medicationOrder.getMedication()));
+        List<Medication> loadItems = loadDroneWithMedication(medicationList, drone.get());
       }
     }
 
     return false;
   }
 
-  public boolean loadDroneWithMedication(List<Medication> medicationList){
-    HashMap<Short, List<Medication>> ageBasedMedicationMap = generateAgeBasedMedicationMap(medicationList);
-    return false;
+  /**
+   * HashMap<Short, List<Medication>> ageBasedMedicationMap = generateAgeBasedMedicationMap(medicationList);
+   * @param medicationList
+   * @param drone
+   * @return
+   */
+  public List<Medication> loadDroneWithMedication(List<Medication> medicationList, Drone drone){
+    int [][] possibleMedicationLoadMatrix = generateMedicationLoadMatrix(medicationList, drone);
+    return getLoadItemsFromMatrix(possibleMedicationLoadMatrix, medicationList.size(),
+        drone.getWeightLimit(), medicationList);
   }
 
   public HashMap<Short, List<Medication>> generateAgeBasedMedicationMap(List<Medication> medicationList){
@@ -102,4 +109,52 @@ public class DroneService {
     return ageBasedMedicationMap;
   }
 
+  public int[][] generateMedicationLoadMatrix(List<Medication> medicationList, Drone drone) {
+    int numberOfItems = medicationList.size();
+    int capacity = drone.getWeightLimit();
+
+    // matrix stores the max value at each n-th item
+    int[][] matrix = new int[numberOfItems + 1][capacity + 1];
+
+    // first line is initialized to 0
+    for (int i = 0; i <= capacity; i++)
+      matrix[0][i] = 0;
+
+    // iterating through items
+    for (int i = 1; i <= numberOfItems; i++) {
+      // we iterate on each capacity
+      for (int j = 0; j <= capacity; j++) {
+        if (medicationList.get(i-1).getWeight() > j) {
+          matrix[i][j] = matrix[i - 1][j];
+        }
+        else {
+          matrix[i][j] = Math.max(matrix[i - 1][j], matrix[i - 1][j - medicationList.get(i-1).getWeight()]
+              + medicationList.get(i-1).getValue());
+        }
+      }
+    }
+
+    return matrix;
+  }
+
+  public List<Medication> getLoadItemsFromMatrix(int[][] matrix,
+      int numberOfItems,
+      short capacity, List<Medication> medicationList){
+    int result = matrix[numberOfItems][capacity];
+    short droneWeightLimit = capacity;
+    List<Medication> medicationItems = new ArrayList<>();
+
+    for (int i = numberOfItems; i > 0  &&  result > 0; i--) {
+
+      if (result != matrix[i-1][droneWeightLimit]) {
+        medicationItems.add(medicationList.get(i-1));
+        // we remove items value and weight
+        result -= medicationList.get(i-1).getValue();
+        droneWeightLimit -= medicationList.get(i-1).getWeight();
+      }
+
+    }
+
+    return medicationItems;
+  }
 }

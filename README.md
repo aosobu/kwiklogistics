@@ -4,19 +4,43 @@ is a java based application that manages the delivery of medications using drone
 ## Pre-requisites
 - Docker
 - Docker compose
-- Java 8 - check java version
-- Maven 3 - check maven version
+- Java 8
+- Maven 3.8.5
 
-## How to run
-Build the jar using command,
+## Database
+H2 in-memory database is used for this project.
+Feel free to modify database properties in application.properties file
+to suit your preference.
+NoSQL databases will not work by default.
 
-    mvn clean install -DskipTests
+## How to run via docker image
+Download image from dockerhub via command
 
-Start the application with the command,
+    docker pull aosobudev20222/kwik-logistics:latest
 
-    docker-compose up
+Start the application with the command
+
+    docker start kwik-logistics
+
+Download postman collection at url
+
+    docker start kwik-logistics
+
+
+## How to run locally
+Pull code with git via 
+
+    https://bitbucket.airtel.africa/bitbucket/users/13401547/repos/kwik-logistics/browse
+
+import into any IDE of your choice.
+CHeck the prerequisites section for information on java and maven versions
+
 
 ## Assumptions
-- The minimum capacity of a drone is pegged at 50 grrams
-- The default state of registered drone is IDLE
+- The minimum capacity of a drone is 50 grams
+- The default state of newly registered drone is IDLE
+- The default state of a newly registered medication order is IDLE
+- The minimum battery capacity of a drone is 1 percent
+
+
  

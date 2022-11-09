@@ -11,6 +11,7 @@ import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 
@@ -18,6 +19,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 @SuperBuilder
 @Table(name = "MEDICATION_TB", indexes = @Index(name = "code_index" , columnList = "code"))
 public class Medication extends AbstractAuditable implements Comparable<Medication> {

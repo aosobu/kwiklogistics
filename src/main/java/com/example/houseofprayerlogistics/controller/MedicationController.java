@@ -44,6 +44,6 @@ public class MedicationController {
     if(service.registerMedication(medicationDTO)){
       return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse(AppConstants.SUCCESS));
     }
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new BaseResponse(AppConstants.MESSAGE));
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new BaseResponse(AppConstants.message));
   }
 }

@@ -65,7 +65,7 @@ public class MedicationService {
       medication = medicationRepository.save(medication);
       recordUpload = true;
     }catch(Exception ex){
-      AppConstants.MESSAGE = AppConstants.DATABASE_SAVE_MESSAGE;
+      AppConstants.message = AppConstants.DATABASE_SAVE_MESSAGE;
       return false;
     }
 
@@ -76,7 +76,7 @@ public class MedicationService {
             Objects.requireNonNull(imageFile.getOriginalFilename())));
       }catch(Exception ex) {
         medicationRepository.delete(medication);
-        AppConstants.MESSAGE = AppConstants.DUPLICATE_IMAGE_MESSAGE;
+        AppConstants.message = AppConstants.DUPLICATE_IMAGE_MESSAGE;
         return false;
       }
     }

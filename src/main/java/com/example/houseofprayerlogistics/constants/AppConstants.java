@@ -27,7 +27,7 @@ public class AppConstants {
   public static final String FOLDER_PATH = "images";
 
   //carrier pigeon variable
-  public static String MESSAGE = "";
+  public static String message = "";
   public static final int MIN_BATTERY_CAPACITY= 25;
 
   //api response
