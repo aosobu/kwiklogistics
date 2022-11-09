@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,11 @@ import org.hibernate.annotations.OnDeleteAction;
 @SuperBuilder
 @Table(name = "MEDICATION_ORDER_TB")
 public class MedicationOrder extends AbstractAuditable {
+
+  private int droneId;
+
+  @Version
+  private long version;
 
   @Enumerated(EnumType.STRING)
   private State state = State.IDLE;

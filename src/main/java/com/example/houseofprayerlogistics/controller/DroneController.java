@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -27,12 +28,21 @@ public class DroneController {
   }
 
   @PostMapping(value = AppConstants.DRONE_REGISTRATION)
-  public ResponseEntity<Object> registerDrone(@RequestBody @Valid DroneDTO droneDTO){
+  public ResponseEntity<BaseResponse> registerDrone(@RequestBody @Valid DroneDTO droneDTO){
     if(droneService.createDrone(droneDTO)) {
       return ResponseEntity.ok(
           new BaseResponse(String.format(AppConstants.DRONE_SUCCESSFUL_REGISTER, droneDTO.getSerialNumber())));
     }
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
         .body(new BaseResponse(String.format(AppConstants.DRONE_FAILURE_REGISTER, droneDTO.getSerialNumber())));
+  }
+
+  @PostMapping(value = AppConstants.LOAD_DRONE)
+  public ResponseEntity<BaseResponse> loadDrone(@RequestParam String serialNumber){
+    if(droneService.loadDrone(serialNumber)){
+      return ResponseEntity.ok(new BaseResponse("drone loaded successfully"));
+    }
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .body(new BaseResponse("drone loaded successfully"));
   }
 }

@@ -26,6 +26,4 @@ public class DroneDTO {
   @Min(value = 1, message = AppConstants.BATTERY_MIN_VALIDATION_MESSAGE)
   @Max(value = 100, message = AppConstants.BATTERY_VALIDATION_MESSAGE)
   private byte batteryCapacity;
-
-  private String error;
 }
