@@ -24,7 +24,7 @@ Start the application with the command
 
 Download postman collection at url
 
-    url to be added shortly
+    https://documenter.getpostman.com/view/20194362/2s8YekTFcj
 
 
 ## How to run locally
@@ -59,6 +59,10 @@ If you encounter an error after first attempt, ensure the name of the image has 
 You can use any of the above serial numbers to check the battery status and available drones.
 
 The link to the postman collection will be shared shortly
+
+##Postman Collection
+
+The collection can be accessed at https://documenter.getpostman.com/view/20194362/2s8YekTFcj
 
 
 

@@ -1,5 +1,7 @@
 package com.example.houseofprayerlogistics.controller;
 
+import static org.springframework.http.ResponseEntity.ok;
+
 import com.example.houseofprayerlogistics.constants.AppConstants;
 import com.example.houseofprayerlogistics.domain.BaseResponse;
 import com.example.houseofprayerlogistics.domain.CustomResponse;
@@ -33,7 +35,7 @@ public class DroneController {
   @PostMapping(value = AppConstants.DRONE_REGISTRATION)
   public ResponseEntity<BaseResponse> registerDrone(@RequestBody @Valid DroneDTO droneDTO){
     if(droneService.createDrone(droneDTO)) {
-      return ResponseEntity.ok(
+      return ok(
           new BaseResponse(String.format("drone with serial number %s has been successfully registered",
               droneDTO.getSerialNumber())));
     }
@@ -45,7 +47,7 @@ public class DroneController {
   @PostMapping(value = AppConstants.LOAD_DRONE)
   public ResponseEntity<BaseResponse> loadDrone(@RequestBody @Valid LoadDroneDTO loadDroneDTO){
     if(droneService.loadDrone(loadDroneDTO.getSerialNumber())){
-      return ResponseEntity.ok(new BaseResponse("drone loaded successfully"));
+      return ok(new BaseResponse("drone loaded successfully"));
     }
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .body(new BaseResponse("drone could not be loaded. Contact Administrator"));
@@ -53,16 +55,16 @@ public class DroneController {
 
   @GetMapping(value = AppConstants.LOADED_ITEMS)
   public ResponseEntity<CustomResponse<Medication>> getLoadedMedicationItems(@RequestBody @Valid LoadDroneDTO loadDroneDTO){
-    return ResponseEntity.ok(new CustomResponse<>(droneService.getLoadedItems(loadDroneDTO.getSerialNumber())));
+    return ok(new CustomResponse<>(droneService.getLoadedItems(loadDroneDTO.getSerialNumber())));
   }
 
   @GetMapping(value = AppConstants.AVAILABLE_DRONE)
   public ResponseEntity<CustomResponse<Drone>> checkAvailableDrones(){
-    return ResponseEntity.ok(new CustomResponse<>(droneService.getAvailableDrones()));
+    return ok(new CustomResponse<>(droneService.getAvailableDrones()));
   }
 
   @GetMapping(value = AppConstants.DRONE_BATTERY_LEVEL)
-  public ResponseEntity<BaseResponse> checkBatteryLevel(@RequestBody @Valid LoadDroneDTO loadDroneDTO){
+  public ResponseEntity<BaseResponse<Integer>> checkBatteryLevel(@RequestBody @Valid LoadDroneDTO loadDroneDTO){
     return ResponseEntity.ok(new BaseResponse(droneService.getBatteryLevel(loadDroneDTO.getSerialNumber())));
   }
 }
