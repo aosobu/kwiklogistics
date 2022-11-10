@@ -14,7 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.Version;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,9 +34,6 @@ public class MedicationOrder extends AbstractAuditable  implements Comparable<Me
   @Transient
   private short age;
 
-//  @Version
-//  private short version;
-
   @Enumerated(EnumType.STRING)
   private State state = State.IDLE;
 
@@ -51,7 +47,6 @@ public class MedicationOrder extends AbstractAuditable  implements Comparable<Me
   @PostLoad
   public void setValue(){
     this.age = (short) ChronoUnit.HOURS.between(this.getCreatedDate(), LocalDateTime.now());
-    //this.medication.setMedicationOrderVersion(this.getVersion());
     this.medication.setMedicationOrderId(this.getId());
     this.medication.setMedicationOrderAge(this.age);
   }

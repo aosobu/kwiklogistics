@@ -33,9 +33,6 @@ public class Medication extends AbstractAuditable implements Comparable<Medicati
   @Transient
   private Long medicationOrderId;
 
-//  @Transient
-//  private int medicationOrderVersion;
-
   @Transient
   private int medicationOrderAge;
 
