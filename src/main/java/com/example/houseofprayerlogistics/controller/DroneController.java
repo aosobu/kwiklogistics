@@ -5,6 +5,7 @@ import com.example.houseofprayerlogistics.domain.BaseResponse;
 import com.example.houseofprayerlogistics.domain.CustomResponse;
 import com.example.houseofprayerlogistics.dto.DroneDTO;
 import com.example.houseofprayerlogistics.dto.LoadDroneDTO;
+import com.example.houseofprayerlogistics.entity.Drone;
 import com.example.houseofprayerlogistics.entity.Medication;
 import com.example.houseofprayerlogistics.service.DroneService;
 import javax.validation.Valid;
@@ -54,4 +55,10 @@ public class DroneController {
   public ResponseEntity<CustomResponse<Medication>> getLoadedMedicationItems(@RequestBody @Valid LoadDroneDTO loadDroneDTO){
     return ResponseEntity.ok(new CustomResponse<>(droneService.getLoadedItems(loadDroneDTO.getSerialNumber())));
   }
+
+  @GetMapping(value = AppConstants.AVAILABLE_DRONE)
+  public ResponseEntity<CustomResponse<Drone>> checkAvailableDrones(){
+    return ResponseEntity.ok(new CustomResponse<>(droneService.getAvailableDrones()));
+  }
+
 }

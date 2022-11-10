@@ -53,6 +53,9 @@ The remaining drones are defaulted to idle
 To load a drone hit the url localhost:9092/kwiklogisics/drone/load with the 
 serial numbers XVH5547674738UTPO
 
+To load a medication hit the url localhost:9092/kwiklogisics/medication/register with payload as shown in postman collection
+If you encounter an error after first attempt, ensure the name of the image has been changed before reattempting.
+
 
 
  

@@ -246,4 +246,9 @@ public class DroneService {
     return loadedMedicationItems;
   }
 
+  public List<Drone> getAvailableDrones(){
+    Optional<List<Drone>> availableDrones = droneRepository.findAllByState(State.IDLE);
+    return availableDrones.orElseGet(ArrayList::new);
+  }
+
 }
