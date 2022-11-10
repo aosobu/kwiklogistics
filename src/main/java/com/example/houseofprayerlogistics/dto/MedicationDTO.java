@@ -8,5 +8,6 @@ public class MedicationDTO {
   private String name;
   private short weight;
   private String code;
+  private short profit;
   private MultipartFile image;
 }

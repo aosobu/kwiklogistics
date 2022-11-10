@@ -15,24 +15,8 @@ public class AppConstants {
   public static final String SERIALNUMBER_VALIDATION_MESSAGE = "serial number cannot be empty";
   public static final String SERIALNUMBER_MAX_VALIDATION_MESSAGE = "serial number should not exceed 100 characters";
 
-  //medication upload validation messages
-  public static final String DRONE_SUCCESSFUL_REGISTER = "drone with serial number %s has been successfully registered";
-  public static final String DRONE_FAILURE_REGISTER = "drone with serial number %s already exists";
-
-  //error message when uploading medication
-  public static final String DUPLICATE_IMAGE_MESSAGE = "please choose another image as medication with image exists. If you choose to use this image, kindly rename it.";
-  public static final String DATABASE_SAVE_MESSAGE = "an error occurred while saving medication record to the database";
-
   //image file path
   public static final String FOLDER_PATH = "images";
-
-  //carrier pigeon variable
-  public static String message = "";
-  public static final int MIN_BATTERY_CAPACITY= 25;
-
-  //api response
-  public static final String SUCCESS = "success";
-
-  //drone loading validation messages
-  public static final String DRONE_NOT_EXIST =  "drone with serial number {} does not exist in the berth";
+  public static final String FOLDER_PATH_INITIALIZATION_ERROR = "Could not initialize folder for upload!";
+  public static final String FILE_SEPERATOR = "/";
 }

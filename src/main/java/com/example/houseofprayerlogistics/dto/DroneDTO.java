@@ -20,7 +20,7 @@ public class DroneDTO {
 
   @Min(value = 50, message = AppConstants.WEIGHT_MIN_VALIDATION_MESSAGE)
   @Max(value = 500, message = AppConstants.WEIGHT_VALIDATION_MESSAGE)
-  private short weight;
+  private short weightLimit;
 
 
   @Min(value = 1, message = AppConstants.BATTERY_MIN_VALIDATION_MESSAGE)

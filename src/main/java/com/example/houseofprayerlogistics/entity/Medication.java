@@ -1,11 +1,8 @@
 package com.example.houseofprayerlogistics.entity;
 
 import com.example.houseofprayerlogistics.entity.auditable.AbstractAuditable;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import javax.persistence.Entity;
 import javax.persistence.Index;
-import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.Getter;
@@ -31,23 +28,22 @@ public class Medication extends AbstractAuditable implements Comparable<Medicati
 
   private String imagePath;
 
-  @Transient
-  private short value;
+  private short profit;
 
   @Transient
-  private short age;
+  private Long medicationOrderId;
 
-  @PostLoad
-  public void setValue(){
-    this.value = this.weight;
-    this.age = (short) ChronoUnit.HOURS.between(this.getCreatedDate(), LocalDateTime.now());
-  }
+//  @Transient
+//  private int medicationOrderVersion;
+
+  @Transient
+  private int medicationOrderAge;
 
   @Override
   public int compareTo(Medication medication) {
-    if (age == medication.age) {
+    if (medication.weight == weight) {
       return 0;
-    }else if (age > medication.age) {
+    }else if (medication.weight > weight) {
       return 1;
     } else {
       return -1;

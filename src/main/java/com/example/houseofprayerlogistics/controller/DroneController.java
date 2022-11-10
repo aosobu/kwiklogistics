@@ -1,9 +1,9 @@
 package com.example.houseofprayerlogistics.controller;
 
 import com.example.houseofprayerlogistics.constants.AppConstants;
-import com.example.houseofprayerlogistics.domain.ApiError;
 import com.example.houseofprayerlogistics.domain.BaseResponse;
 import com.example.houseofprayerlogistics.dto.DroneDTO;
+import com.example.houseofprayerlogistics.dto.LoadDroneDTO;
 import com.example.houseofprayerlogistics.service.DroneService;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -31,18 +30,20 @@ public class DroneController {
   public ResponseEntity<BaseResponse> registerDrone(@RequestBody @Valid DroneDTO droneDTO){
     if(droneService.createDrone(droneDTO)) {
       return ResponseEntity.ok(
-          new BaseResponse(String.format(AppConstants.DRONE_SUCCESSFUL_REGISTER, droneDTO.getSerialNumber())));
+          new BaseResponse(String.format("drone with serial number %s has been successfully registered",
+              droneDTO.getSerialNumber())));
     }
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        .body(new BaseResponse(String.format(AppConstants.DRONE_FAILURE_REGISTER, droneDTO.getSerialNumber())));
+        .body(new BaseResponse(String.format("drone with serial number %s already exists",
+            droneDTO.getSerialNumber())));
   }
 
   @PostMapping(value = AppConstants.LOAD_DRONE)
-  public ResponseEntity<BaseResponse> loadDrone(@RequestParam String serialNumber){
-    if(droneService.loadDrone(serialNumber)){
+  public ResponseEntity<BaseResponse> loadDrone(@RequestBody @Valid LoadDroneDTO loadDroneDTO){
+    if(droneService.loadDrone(loadDroneDTO.getSerialNumber())){
       return ResponseEntity.ok(new BaseResponse("drone loaded successfully"));
     }
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .body(new BaseResponse("drone loaded successfully"));
+        .body(new BaseResponse("drone could not be loaded. Contact Administrator"));
   }
 }

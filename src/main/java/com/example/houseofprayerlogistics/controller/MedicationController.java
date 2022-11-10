@@ -37,13 +37,16 @@ public class MedicationController {
 
     MedicationDTO medicationDTO = mapper.readValue(medication, MedicationDTO.class);
     medicationDTO.setImage(file);
+    medicationDTO.setProfit(medicationDTO.getWeight());
 
     //TODO validate medicationDTO
     //TODO use validation util class
 
     if(service.registerMedication(medicationDTO)){
-      return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse(AppConstants.SUCCESS));
+      return ResponseEntity.status(HttpStatus.OK)
+          .body(new BaseResponse("medication registered successfully"));
     }
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new BaseResponse(AppConstants.message));
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .body(new BaseResponse("medication could not be registed. Contact Administrator"));
   }
 }
