@@ -251,4 +251,9 @@ public class DroneService {
     return availableDrones.orElseGet(ArrayList::new);
   }
 
+  public int getBatteryLevel(String serialNumber){
+    Optional<Drone> drone = droneRepository.findDroneBySerialNumber(serialNumber);
+    return drone.map(Drone::getBatteryCapacity).orElse((byte) 0);
+  }
+
 }

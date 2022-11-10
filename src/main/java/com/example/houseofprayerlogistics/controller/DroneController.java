@@ -61,4 +61,8 @@ public class DroneController {
     return ResponseEntity.ok(new CustomResponse<>(droneService.getAvailableDrones()));
   }
 
+  @GetMapping(value = AppConstants.DRONE_BATTERY_LEVEL)
+  public ResponseEntity<BaseResponse> checkBatteryLevel(@RequestBody @Valid LoadDroneDTO loadDroneDTO){
+    return ResponseEntity.ok(new BaseResponse(droneService.getBatteryLevel(loadDroneDTO.getSerialNumber())));
+  }
 }

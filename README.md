@@ -56,6 +56,10 @@ serial numbers XVH5547674738UTPO
 To load a medication hit the url localhost:9092/kwiklogisics/medication/register with payload as shown in postman collection
 If you encounter an error after first attempt, ensure the name of the image has been changed before reattempting.
 
+You can use any of the above serial numbers to check the battery status and available drones.
+
+The link to the postman collection will be shared shortly
+
 
 
  

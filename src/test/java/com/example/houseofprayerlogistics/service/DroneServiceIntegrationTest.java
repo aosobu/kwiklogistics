@@ -20,7 +20,7 @@ public class DroneServiceIntegrationTest {
   }
 
   @Test
-  public void testLoadDroneOnMultipleThreadsForOptimisticLockingExceptionError(){
+  public void testLoadDroneOnMultipleThreadsForOptimisticLockingBehaviour(){
     Thread t1 = new Thread(new Runnable() {
       @Override
       public void run() {
