@@ -2,14 +2,17 @@ package com.example.houseofprayerlogistics.controller;
 
 import com.example.houseofprayerlogistics.constants.AppConstants;
 import com.example.houseofprayerlogistics.domain.BaseResponse;
+import com.example.houseofprayerlogistics.domain.CustomResponse;
 import com.example.houseofprayerlogistics.dto.DroneDTO;
 import com.example.houseofprayerlogistics.dto.LoadDroneDTO;
+import com.example.houseofprayerlogistics.entity.Medication;
 import com.example.houseofprayerlogistics.service.DroneService;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,5 +48,10 @@ public class DroneController {
     }
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .body(new BaseResponse("drone could not be loaded. Contact Administrator"));
+  }
+
+  @GetMapping(value = AppConstants.LOADED_ITEMS)
+  public ResponseEntity<CustomResponse<Medication>> getLoadedMedicationItems(@RequestBody @Valid LoadDroneDTO loadDroneDTO){
+    return ResponseEntity.ok(new CustomResponse<>(droneService.getLoadedItems(loadDroneDTO.getSerialNumber())));
   }
 }

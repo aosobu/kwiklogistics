@@ -46,7 +46,7 @@ public class MedicationService {
     boolean recordUpload;
     MultipartFile imageFile = Objects.requireNonNull(medicationDTO.getImage());
 
-    //TODO:: AppConstants.FILE_SEPERATOR :: read this value from config file or testabiliy is dead
+    //TODO:: AppConstants.FILE_SEPERATOR should be read from config file or testabiliy of method is hard
     String filePath = this.root.toString().concat(AppConstants.FILE_SEPERATOR).concat(
         Objects.requireNonNull(imageFile.getOriginalFilename()));
 
@@ -70,7 +70,6 @@ public class MedicationService {
     }catch(Exception ex){
       return false;
     }
-
 
     if(recordUpload){
       try{

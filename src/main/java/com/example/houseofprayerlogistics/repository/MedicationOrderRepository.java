@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MedicationOrderRepository extends JpaRepository<MedicationOrder, Long> {
   Optional<List<MedicationOrder>> findAllByState(State state);
+  Optional<List<MedicationOrder>> findAllByDroneId(Long id);
 }

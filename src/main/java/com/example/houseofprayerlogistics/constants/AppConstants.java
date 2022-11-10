@@ -6,6 +6,7 @@ public class AppConstants {
   public static final String DRONE_REGISTRATION = "/drone/register";
   public static final String LOAD_DRONE= "/drone/load";
   public static final String MEDICATION_REGISTRATION = "/medication/register";
+  public static final String LOADED_ITEMS = "/drone/loaded";
 
   //drone validation messages
   public static final String WEIGHT_VALIDATION_MESSAGE = "weight cannot exceed 500 grams";

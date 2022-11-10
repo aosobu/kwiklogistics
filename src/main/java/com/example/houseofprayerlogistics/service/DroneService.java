@@ -14,11 +14,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import javax.persistence.OptimisticLockException;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -55,6 +55,7 @@ public class DroneService {
     return false;
   }
 
+  @Transactional
   public boolean loadDrone(String serialNumber){
     List<MedicationOrder> medicationOrderForUpdate = new ArrayList<>();
 
@@ -229,4 +230,20 @@ public class DroneService {
 
     return medicationItems;
   }
+
+  public List<Medication> getLoadedItems(String serialNUmber){
+    List<Medication> loadedMedicationItems = new ArrayList<>();
+
+    Optional<Drone> drone = droneRepository.findDroneBySerialNumber(serialNUmber);
+    if(!drone.isPresent()){
+      return new ArrayList<>();
+    }
+
+    Optional<List<MedicationOrder>> loadedItems = medicationOrderRepository.findAllByDroneId(drone.get().getId());
+    loadedItems.ifPresent(medicationOrders -> medicationOrders.forEach(
+        item -> loadedMedicationItems.add(item.getMedication())));
+
+    return loadedMedicationItems;
+  }
+
 }

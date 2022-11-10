@@ -1,6 +1,7 @@
 package com.example.houseofprayerlogistics.entity;
 
 import com.example.houseofprayerlogistics.entity.auditable.AbstractAuditable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
@@ -26,14 +27,18 @@ public class Medication extends AbstractAuditable implements Comparable<Medicati
 
   private String code;
 
+  @JsonIgnore
   private String imagePath;
 
+  @JsonIgnore
   private short profit;
 
   @Transient
+  @JsonIgnore
   private Long medicationOrderId;
 
   @Transient
+  @JsonIgnore
   private int medicationOrderAge;
 
   @Override
