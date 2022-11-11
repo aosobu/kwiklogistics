@@ -12,5 +12,4 @@ import org.springframework.stereotype.Repository;
 public interface DroneRepository extends JpaRepository<Drone, Long> {
   Optional<Drone> findDroneBySerialNumber(String serialNumber);
   Optional<List<Drone>> findAllByState(State state);
-  byte findDroneByBatteryCapacity(String serialNumber);
 }

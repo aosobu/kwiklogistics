@@ -1,12 +1,12 @@
 --data for medication table
 insert into medication_tb (created_date, last_modified_date, code, image_path, name, weight, profit)
-values  ('2022-11-08 04:28:37.328478', '2022-11-08 04:28:37.328478',  'aug-100', 'images/Twitter-logo-png-1.png', 'augmentin-1009', 100, 100);
+values  ('2022-11-08 04:28:37.328478', '2022-11-08 04:28:37.328478',  'AUG_100', 'images/Twitter-logo-png-1.png', 'augmentin-1009', 100, 100);
 insert into medication_tb (created_date, last_modified_date, code, image_path, name, weight, profit)
-values  ('2022-11-08 05:28:37.328478', '2022-11-08 05:28:37.328478',  'combat-200', 'images/Twitter-logo-png-1.png', 'combatrin-200g', 200, 200);
+values  ('2022-11-08 05:28:37.328478', '2022-11-08 05:28:37.328478',  'COMBAT_200', 'images/Twitter-logo-png-1.png', 'combatrin-200g', 200, 200);
 insert into medication_tb (created_date, last_modified_date, code, image_path, name, weight, profit)
-values  ('2022-11-08 06:28:37.328478', '2022-11-08 06:28:37.328478',  'loratidine-300', 'images/Twitter-logo-png-1.png', 'loratidine-300g', 300, 300);
+values  ('2022-11-08 06:28:37.328478', '2022-11-08 06:28:37.328478',  'LORAT_300', 'images/Twitter-logo-png-1.png', 'loratidine-300g', 300, 300);
 insert into medication_tb (created_date, last_modified_date, code, image_path, name, weight, profit)
-values  ('2022-11-08 07:28:37.328478', '2022-11-08 07:28:37.328478',  'benylin-400', 'images/Twitter-logo-png-1.png', 'benylin-400g', 400, 400);
+values  ('2022-11-08 07:28:37.328478', '2022-11-08 07:28:37.328478',  'BENYLIN_400', 'images/Twitter-logo-png-1.png', 'benylin-400g', 400, 400);
 
 --data for medication order
 insert into medication_order_tb (medication_id, state, created_date, last_modified_date, drone_id)

@@ -42,12 +42,12 @@ public class MedicationService {
   }
 
   public boolean registerMedication(MedicationDTO medicationDTO) {
+    String fileSeparator = "/";
     Medication medication;
     boolean recordUpload;
     MultipartFile imageFile = Objects.requireNonNull(medicationDTO.getImage());
 
-    //TODO:: AppConstants.FILE_SEPERATOR should be read from config file or testabiliy of method is hard
-    String filePath = this.root.toString().concat(AppConstants.FILE_SEPERATOR).concat(
+    String filePath = this.root.toString().concat(fileSeparator).concat(
         Objects.requireNonNull(imageFile.getOriginalFilename()));
 
     Optional<Medication> medicationExists = medicationRepository.findMedicationByCode(medicationDTO.getCode());

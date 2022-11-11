@@ -16,16 +16,24 @@ NoSQL databases will not work by default.
 ## How to run via docker image
 Download image from dockerhub via command
 
-    docker pull aosobudev20222/kwik-logistics:latest
+    docker pull aosobudev20222/kwiklogistics.jar
 
 Start the application with the command
 
-    docker start kwik-logistics
+    docker run -p 9092:9092 aosobudev20222/kwiklogistics.jar
 
 Download postman collection at url
 
     https://documenter.getpostman.com/view/20194362/2s8YekTFcj
 
+
+You can access use the collection to access the application
+
+Note:
+When testing the endpoint
+localhost:9092/kwiklogisics/register/medication
+
+Kindly add image before trying it out
 
 ## How to run locally
 Pull code with git via 
@@ -58,11 +66,31 @@ If you encounter an error after first attempt, ensure the name of the image has 
 
 You can use any of the above serial numbers to check the battery status and available drones.
 
-The link to the postman collection will be shared shortly
-
 ##Postman Collection
 
 The collection can be accessed at https://documenter.getpostman.com/view/20194362/2s8YekTFcj
+
+
+##Build docker image locally
+After importing the project into IDE of your choice.
+
+Go to your terminal and navigate to the directory of the application.
+
+Execute the commannds listed below sequentially.
+
+mvn clean install
+(generates jar file to be used by docker build command)
+
+docker build -t kwiklogistics.jar .
+(generates docker image)
+
+docker image ls
+(You should have a jar with name kwiklogistics.jar on the listing with CREATED column entry in minutes)
+
+docker run -p 9092:9092 kwiklogistics.jar
+(you should see the spring service application start up in the terminal)
+
+
 
 
 

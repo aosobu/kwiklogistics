@@ -32,6 +32,10 @@ public class DroneServiceLoadMedicationTest {
 
   @Mock
   private MedicationOrderRepository medicationOrderRepository;
+
+  @Mock
+  Drone droneExists;
+
   private String serialNumber;
 
   @Before
@@ -46,6 +50,7 @@ public class DroneServiceLoadMedicationTest {
         .batteryCapacity((byte) 25)
         .weightLimit((short) 500)
         .serialNumber("XV345PG")
+        .state(State.IDLE)
         .model(Model.CRUISERWEIGHT)
         .build();
 
@@ -53,6 +58,7 @@ public class DroneServiceLoadMedicationTest {
     Mockito.when(batteryProperties.getMinCapacity()).thenReturn(25);
     Mockito.when(medicationOrderRepository.findAllByState(State.IDLE))
         .thenReturn(Optional.of(TestData.getMedicationOrderDataSetForLoadItemsWithinDifferentAgeBracket()));
+    Mockito.when(droneExists.getState()).thenReturn(State.IDLE);
 
     Assert.assertTrue(droneServiceMock.loadDroneWithItems(serialNumber));
   }
@@ -63,6 +69,7 @@ public class DroneServiceLoadMedicationTest {
         .batteryCapacity((byte) 25)
         .weightLimit((short) 500)
         .serialNumber("XV345PG")
+        .state(State.IDLE)
         .model(Model.CRUISERWEIGHT)
         .build();
 
@@ -70,6 +77,7 @@ public class DroneServiceLoadMedicationTest {
     Mockito.when(batteryProperties.getMinCapacity()).thenReturn(25);
     Mockito.when(medicationOrderRepository.findAllByState(State.IDLE))
         .thenReturn(Optional.of(TestData.getMedicationOrderDataSetForLoadItemsWithinSameAgeBracket()));
+    Mockito.when(droneExists.getState()).thenReturn(State.IDLE);
 
     Assert.assertTrue(droneServiceMock.loadDroneWithItems(serialNumber));
   }

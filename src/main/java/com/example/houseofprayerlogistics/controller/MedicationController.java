@@ -4,6 +4,7 @@ import com.example.houseofprayerlogistics.constants.AppConstants;
 import com.example.houseofprayerlogistics.domain.BaseResponse;
 import com.example.houseofprayerlogistics.dto.MedicationDTO;
 import com.example.houseofprayerlogistics.service.MedicationService;
+import com.example.houseofprayerlogistics.util.ValidatorUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
@@ -39,8 +40,13 @@ public class MedicationController {
     medicationDTO.setImage(file);
     medicationDTO.setProfit(medicationDTO.getWeight());
 
-    //TODO validate medicationDTO
-    //TODO use validation util class
+    if(!medicationDTO.validateCode(medicationDTO.getCode()))
+      return ResponseEntity.status(HttpStatus.OK)
+          .body(new BaseResponse("only upper case letters, underscore and numbers  allowed for code"));
+
+    if(!medicationDTO.validateName(medicationDTO.getName()))
+      return ResponseEntity.status(HttpStatus.OK)
+          .body(new BaseResponse("only letters, numbers, underscore and dash for name"));
 
     if(service.registerMedication(medicationDTO)){
       return ResponseEntity.status(HttpStatus.OK)

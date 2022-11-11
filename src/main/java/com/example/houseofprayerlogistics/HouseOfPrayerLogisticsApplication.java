@@ -6,7 +6,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
+@EnableScheduling
 @EnableJpaAuditing
 @SpringBootApplication
 public class HouseOfPrayerLogisticsApplication implements CommandLineRunner {
@@ -23,7 +25,6 @@ public class HouseOfPrayerLogisticsApplication implements CommandLineRunner {
     Thread t1 = new Thread(new Runnable() {
       @Override
       public void run() {
-        System.out.println("thread one running");
         try {
           String serialNumber = "XVH5547674734UTPO";
           droneService.loadDrone(serialNumber);
