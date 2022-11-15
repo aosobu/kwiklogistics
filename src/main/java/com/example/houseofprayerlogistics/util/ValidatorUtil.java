@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 public class ValidatorUtil {
 
   /**
-   * This attempts to generate regex that would enforce a patter
+   * This attempts to generate regex that would enforce a pattern
    * say ab_cd or ac-100
    */
   private final String regExp = "^(?=.*[a-z])(?:[a-z0-9]|-(?!-))*(?:[a-z0-9]|_(?!-))*$";

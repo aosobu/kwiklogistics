@@ -4,7 +4,6 @@ import com.example.houseofprayerlogistics.constants.AppConstants;
 import com.example.houseofprayerlogistics.domain.BaseResponse;
 import com.example.houseofprayerlogistics.dto.MedicationDTO;
 import com.example.houseofprayerlogistics.service.MedicationService;
-import com.example.houseofprayerlogistics.util.ValidatorUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +32,7 @@ public class MedicationController {
 
   @PostMapping(value = AppConstants.MEDICATION_REGISTRATION, consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
               produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<BaseResponse> registerMedication(@RequestParam(value = "image") MultipartFile file,
+  public ResponseEntity<BaseResponse<String>> registerMedication(@RequestParam(value = "image") MultipartFile file,
                                       @RequestParam(value = "jsondata") String medication) throws IOException {
 
     MedicationDTO medicationDTO = mapper.readValue(medication, MedicationDTO.class);
@@ -42,17 +41,17 @@ public class MedicationController {
 
     if(!medicationDTO.validateCode(medicationDTO.getCode()))
       return ResponseEntity.status(HttpStatus.OK)
-          .body(new BaseResponse("only upper case letters, underscore and numbers  allowed for code"));
+          .body(new BaseResponse<>("only upper case letters, underscore and numbers  allowed for code"));
 
     if(!medicationDTO.validateName(medicationDTO.getName()))
       return ResponseEntity.status(HttpStatus.OK)
-          .body(new BaseResponse("only letters, numbers, underscore and dash for name"));
+          .body(new BaseResponse<>("only letters, numbers, underscore and dash for name"));
 
     if(service.registerMedication(medicationDTO)){
       return ResponseEntity.status(HttpStatus.OK)
-          .body(new BaseResponse("medication registered successfully"));
+          .body(new BaseResponse<>("medication registered successfully"));
     }
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .body(new BaseResponse("medication could not be registed. Contact Administrator"));
+        .body(new BaseResponse<>("medication could not be registed. Contact Administrator"));
   }
 }

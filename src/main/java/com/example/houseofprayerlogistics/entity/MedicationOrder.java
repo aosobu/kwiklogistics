@@ -27,7 +27,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Setter
 @SuperBuilder
 @Table(name = "MEDICATION_ORDER_TB")
-public class MedicationOrder extends AbstractAuditable  implements Comparable<MedicationOrder> {
+public class  MedicationOrder extends AbstractAuditable  implements Comparable<MedicationOrder> {
 
   private Long droneId;
 

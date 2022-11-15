@@ -121,6 +121,30 @@ public class DroneService {
     return false;
   }
 
+  /**
+   *
+   * This method first generates an aged based classification map of medication order items.
+   * This is achieved by determining the age of each medication item.
+   *
+   * Utilizing the age, a map is created which holds the age as key and the list
+   * of items within the same age bracket as value.
+   *
+   * The age is the difference, in hours, between the created datetime of each item and the time when
+   * it is loaded into the application
+   *
+   * This is to ensure that items are treated in a first-in-first-out basis, i.e. the order
+   * in which they were added to the database.
+   *
+   * Utilizing the derived map, the list is then passed through a knapsack engine
+   * to ensure drone capacity is optimally filled with medication items based on a first-in-first-out
+   * basis as described above.
+   *
+   * This is achieved by traversing the map after guaranteeing that the keys are arranged in
+   * descending order.
+   *
+   * Note: Keys represent the time difference in hours from arrival in database to read by the application.
+   *
+   */
   public Map<Short, List<MedicationOrder>> generateAgeBasedMedicationOrderMap(List<MedicationOrder> medicationOrderList){
     LinkedHashMap<Short, List<MedicationOrder>> ageBasedMedicationOrderMap = new LinkedHashMap<>();
     Collections.sort(medicationOrderList);
@@ -152,30 +176,7 @@ public class DroneService {
     return ageBasedMedicationOrderMap;
   }
 
-  /**
-   *
-   * This method first generates an aged based classification map of medication order items.
-   * This is achieved by determining the age of each medication item.
-   *
-   * Utilizing the age, a map is created which holds the age as key and the list
-   * of items within the same age bracket as value.
-   *
-   * The age is the difference, in hours, between the created datetime of each item and the time when
-   * it is loaded into the application
-   *
-   * This is to ensure that items are treated in a first-in-first-out basis, i.e. the order
-   * in which they were added to the database.
-   *
-   * Utilizing the derived map, the list is then passed through a knapsack engine
-   * to ensure drone capacity is optimally filled with medication items based on a first-in-first-out
-   * basis as described above.
-   *
-   * This is achieved by traversing the map after  guaranteeing that the keys are arranged in
-   * descending order.
-   *
-   * Note: Keys represent the time difference in hours from arrival in database to read by the application.
-   *
-   */
+
   public List<Medication> loadDroneWithMedication(List<Medication> medicationList, Drone drone){
     int[][] possibleMedicationLoadMatrix = generateMedicationLoadMatrix(medicationList, drone);
     medicationItems = getLoadItemsFromMatrix(possibleMedicationLoadMatrix, medicationList.size(), droneWeightLimit, medicationList);

@@ -10,6 +10,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomResponse<T> extends BaseResponse {
+public class CustomResponse<T> extends BaseResponse<T> {
   List<T> items;
 }

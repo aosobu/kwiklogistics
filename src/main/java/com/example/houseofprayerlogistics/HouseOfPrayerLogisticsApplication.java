@@ -22,18 +22,18 @@ public class HouseOfPrayerLogisticsApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    Thread t1 = new Thread(new Runnable() {
-      @Override
-      public void run() {
-        try {
-          String serialNumber = "XVH5547674734UTPO";
-          droneService.loadDrone(serialNumber);
-          System.out.println("drone with id " + serialNumber + " has been loaded");
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
-    });
-    t1.start();
-  }
+//    Thread t1 = new Thread(new Runnable() {
+//      @Override
+//      public void run() {
+//        try {
+//          String serialNumber = "XVH5547674734UTPO";
+//          droneService.loadDrone(serialNumber);
+//          System.out.println("drone with id " + serialNumber + " has been loaded");
+//        } catch (Exception e) {
+//          e.printStackTrace();
+//        }
+//      }
+//    });
+//    t1.start();
+   }
 }

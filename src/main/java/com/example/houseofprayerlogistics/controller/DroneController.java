@@ -33,24 +33,24 @@ public class DroneController {
   }
 
   @PostMapping(value = AppConstants.DRONE_REGISTRATION)
-  public ResponseEntity<BaseResponse> registerDrone(@RequestBody @Valid DroneDTO droneDTO){
+  public ResponseEntity<BaseResponse<String>> registerDrone(@RequestBody @Valid DroneDTO droneDTO){
     if(droneService.createDrone(droneDTO)) {
       return ok(
-          new BaseResponse(String.format("drone with serial number %s has been successfully registered",
+          new BaseResponse<>(String.format("drone with serial number %s has been successfully registered",
               droneDTO.getSerialNumber())));
     }
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        .body(new BaseResponse(String.format("drone with serial number %s already exists",
+        .body(new BaseResponse<>(String.format("drone with serial number %s already exists",
             droneDTO.getSerialNumber())));
   }
 
   @PostMapping(value = AppConstants.LOAD_DRONE)
-  public ResponseEntity<BaseResponse> loadDrone(@RequestBody @Valid LoadDroneDTO loadDroneDTO){
+  public ResponseEntity<BaseResponse<String>> loadDrone(@RequestBody @Valid LoadDroneDTO loadDroneDTO){
     if(droneService.loadDrone(loadDroneDTO.getSerialNumber())){
-      return ok(new BaseResponse("drone loaded successfully"));
+      return ok(new BaseResponse<>("drone loaded successfully"));
     }
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .body(new BaseResponse("drone could not be loaded. Contact Administrator"));
+        .body(new BaseResponse<>("drone could not be loaded. Contact Administrator"));
   }
 
   @GetMapping(value = AppConstants.LOADED_ITEMS)
@@ -65,6 +65,6 @@ public class DroneController {
 
   @GetMapping(value = AppConstants.DRONE_BATTERY_LEVEL)
   public ResponseEntity<BaseResponse<Integer>> checkBatteryLevel(@RequestBody @Valid LoadDroneDTO loadDroneDTO){
-    return ResponseEntity.ok(new BaseResponse(droneService.getBatteryLevel(loadDroneDTO.getSerialNumber())));
+    return ResponseEntity.ok(new BaseResponse<>(droneService.getBatteryLevel(loadDroneDTO.getSerialNumber())));
   }
 }
